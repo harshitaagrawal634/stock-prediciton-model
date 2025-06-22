@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# macOS
+.DS_Store
+
+# PyCharm settings
+.idea/
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs and temp files
+*.log
+*.bak
+*.tmp
+
+# Local data files
+*.csv
+*.xlsx
+*.parquet
+*.pkl
+*.h5
+
+# Streamlit cache
+.streamlit/
+
+# Python virtual environment
+pip-wheel-metadata/
+
+# Test coverage reports
+htmlcov/
+.coverage
+coverage.xml
