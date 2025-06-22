@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: stock-predictor-api
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "streamlit run app.py"
+    branch: main
+    region: oregon
