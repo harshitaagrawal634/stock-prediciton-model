@@ -3,6 +3,7 @@ services:
     name: stock-predictor-api
     env: python
     plan: free
+    pythonVersion: 3.10
     buildCommand: "pip install -r requirements.txt"
     startCommand: "streamlit run Trading_App.py"
     branch: main
