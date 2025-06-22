@@ -1,10 +1,7 @@
 services:
   - type: web
-    name: stock-predictor-api
+    name: stock-prediction-model
     env: python
-    plan: free
-    pythonVersion: 3.10
     buildCommand: "pip install -r requirements.txt"
     startCommand: "streamlit run Trading_App.py"
-    branch: main
-    region: oregon
+    pythonVersion: 3.10
