@@ -1,7 +1,14 @@
 services:
   - type: web
-    name: stock-prediction
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run Trading_App.py
-    pythonVersion: 3.10.13
+    name: stock-prediction-model
+    runtime: python
+    buildCommand: |
+      echo "3.10.13" > /tmp/python-version
+      pyenv install -s 3.10.13
+      pyenv global 3.10.13
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: streamlit run app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.13
