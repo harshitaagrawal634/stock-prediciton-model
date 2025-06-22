@@ -1,7 +1,7 @@
 services:
   - type: web
-    name: stock-prediction-model
+    name: stock-prediction
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "streamlit run Trading_App.py"
-    pythonVersion: 3.10
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run Trading_App.py
+    pythonVersion: 3.10.13
