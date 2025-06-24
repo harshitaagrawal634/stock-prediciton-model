@@ -9,6 +9,7 @@ __pycache__/
 env/
 venv/
 ENV/
+stock-env/
 *.env
 
 # Jupyter Notebook checkpoints
@@ -40,8 +41,9 @@ dist/
 *.pkl
 *.h5
 
-# Streamlit cache
-.streamlit/
+# Streamlit cache (keep config.toml if exists)
+.streamlit/*
+!.streamlit/config.toml
 
 # Python virtual environment
 pip-wheel-metadata/
