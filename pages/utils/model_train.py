@@ -8,7 +8,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 def get_data(ticker):
-    stock_data = yf.download(ticker, start="2024-01-01")
+    start_date = (datetime.today() - timedelta(days=365 * 15)).strftime('%Y-%m-%d')
+    stock_data = yf.download(ticker, start=start_date)
     return stock_data['Close']
 
 def stationary_check(close_price):
@@ -33,7 +34,7 @@ def get_differencing_order(close_price):
     return d
 
 def fit_model(data,differencing_order):
-    model=ARIMA(data,order=(30,differencing_order,30))
+    model=ARIMA(data,order=(10,differencing_order,5))
     model_fit = model.fit()
     
     forecast_steps= 30
