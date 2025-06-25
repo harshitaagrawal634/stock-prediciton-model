@@ -36,6 +36,12 @@ st.subheader(ticker)
 
 stock = yf.Ticker(ticker)
 
+try:
+    info = stock.info
+except Exception as e:
+    info = {}
+    st.warning(f"Could not fetch stock info: {e}")
+
 st.write(stock.info.get('longBusinessSummary', 'No summary available.'))
 st.write("**Sector:**", stock.info.get('sector', 'N/A'))
 st.write("**Full Time Employees:**", stock.info.get('fullTimeEmployees', 'N/A'))
