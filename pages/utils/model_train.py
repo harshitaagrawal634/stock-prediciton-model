@@ -34,7 +34,7 @@ def get_differencing_order(close_price):
     return d
 
 def fit_model(data,differencing_order):
-    model=ARIMA(data,order=(10,differencing_order,5))
+    model=ARIMA(data,order=(30,differencing_order,30))
     model_fit = model.fit()
     
     forecast_steps= 30
