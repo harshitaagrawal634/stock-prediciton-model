@@ -1,7 +1,10 @@
+from ast import And
+from tracemalloc import start
 import streamlit as st
-from pages.utils.model_train import get_data, get_rolling_mean, get_differencing_order, scaling, evaluate_model, get_forecast, inverse_scaling
+from pages.utils.model_train import get_rolling_mean, get_differencing_order, get_stock_data, scaling, evaluate_model, get_forecast, inverse_scaling
 import pandas as pd
 from pages.utils.plotly_figure import plotly_table, Moving_average_forecast
+from datetime import datetime, timedelta
 
 st.set_page_config(
     page_title="Stock Prediciton",
@@ -20,7 +23,10 @@ rmse=0
 
 st.subheader('Predicting Next 30 days Close price for: '+ticker)
 
-close_price= get_data(ticker)
+start = datetime.now() - timedelta(days=365*5)  # 5 years ago
+end = datetime.now()
+
+close_price= get_stock_data(ticker, start, end)
 rolling_price= get_rolling_mean(close_price)
 
 differencing_order= get_differencing_order(rolling_price)
