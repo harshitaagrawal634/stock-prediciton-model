@@ -8,4 +8,4 @@ services:
     startCommand: streamlit run Trading_App.py --server.port=$PORT --server.enableCORS=false
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.11
+        value: 3.10
