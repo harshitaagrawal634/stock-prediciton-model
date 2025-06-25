@@ -42,42 +42,35 @@ except Exception as e:
     info = {}
     st.warning(f"Could not fetch stock info: {e}")
 
-st.write(stock.info.get('longBusinessSummary', 'No summary available.'))
-st.write("**Sector:**", stock.info.get('sector', 'N/A'))
-st.write("**Full Time Employees:**", stock.info.get('fullTimeEmployees', 'N/A'))
-st.write("**Website:**", stock.info.get('website', 'N/A'))
+st.write(info.get('longBusinessSummary', 'No summary available.'))
+st.write("**Sector:**", info.get('sector', 'N/A'))
+st.write("**Full Time Employees:**", info.get('fullTimeEmployees', 'N/A'))
+st.write("**Website:**", info.get('website', 'N/A'))
 
-col1,col2= st.columns(2)
+col1, col2 = st.columns(2)
 
 with col1:
-    df=pd.DataFrame(index=['Market cap','Beta','EPS','PE Ratio'])
-    df['']= [stock.info["marketCap"],stock.info["beta"],stock.info["trailingEps"],stock.info["trailingPE"]]
-    fig_df=plotly_table(df)
+    df = pd.DataFrame(index=['Market cap', 'Beta', 'EPS', 'PE Ratio'])
+    df[''] = [
+        info.get("marketCap", "N/A"),
+        info.get("beta", "N/A"),
+        info.get("trailingEps", "N/A"),
+        info.get("trailingPE", "N/A"),
+    ]
+    fig_df = plotly_table(df)
     st.plotly_chart(fig_df, use_container_width=True)
-    
+
 with col2:
-    df=pd.DataFrame(index=['Quick Ratio','Revenue per share','Profit Margins','Debt to Equity','Return on Equity'])
-    df['']= [stock.info["quickRatio"],stock.info["revenuePerShare"],stock.info["profitMargins"],stock.info["debtToEquity"],stock.info["returnOnEquity"]]
-    fig_df=plotly_table(df)
+    df = pd.DataFrame(index=['Quick Ratio', 'Revenue per share', 'Profit Margins', 'Debt to Equity', 'Return on Equity'])
+    df[''] = [
+        info.get("quickRatio", "N/A"),
+        info.get("revenuePerShare", "N/A"),
+        info.get("profitMargins", "N/A"),
+        info.get("debtToEquity", "N/A"),
+        info.get("returnOnEquity", "N/A"),
+    ]
+    fig_df = plotly_table(df)
     st.plotly_chart(fig_df, use_container_width=True)
-
-data=yf.download(ticker,start=start_date, end=end_date)
-
-latest_close = data['Close'].iloc[-1]
-previous_close = data['Close'].iloc[-2]
-daily_change = latest_close - previous_close
-
-col1.metric("Daily Change", round(latest_close.item(), 2), round(daily_change.item(), 2))
-
-last_10_df = data.tail(10).sort_index(ascending=False).round(3)
-
-if isinstance(last_10_df.columns, pd.MultiIndex):
-    last_10_df.columns = [col[0] for col in last_10_df.columns]
-
-fig_df = plotly_table(last_10_df)
-
-st.write('#### Historical Data (last 10 days)')
-st.plotly_chart(fig_df, use_container_width=True)
 
 col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12 = st.columns([1,1,1,1,1,1,1,1,1,1,1,1])
 
