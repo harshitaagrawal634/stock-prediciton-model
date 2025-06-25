@@ -120,56 +120,31 @@ else:
         if chart_type == 'Candle' and indicators == 'RSI':
             st.plotly_chart(candlestick(data1, '1y'), use_container_width=True)
             st.plotly_chart(RSI(data1, '1y'), use_container_width=True)
-        
+        if chart_type == 'Candle' and indicators == 'MACD':
+            st.plotly_chart(candlestick(data1, '1y'), use_container_width=True)
+            st.plotly_chart(MACD(data1, '1y'), use_container_width=True)
+        if chart_type == 'Line' and indicators == 'RSI':
+            st.plotly_chart(close_chart(data1, '1y'), use_container_width=True)
+            st.plotly_chart(RSI(data1, '1y'), use_container_width=True)
+        if chart_type == 'Line' and indicators == 'Moving Average':
+            st.plotly_chart(close_chart(data1, '1y'), use_container_width=True)
+            st.plotly_chart(Moving_average(data1, '1y'), use_container_width=True)
+        if chart_type == 'Line' and indicators == 'MACD':
+            st.plotly_chart(close_chart(data1, '1y'), use_container_width=True)
+            st.plotly_chart(MACD(data1, '1y'), use_container_width=True)
     else:
         if chart_type == 'Candle' and indicators == 'RSI':
             st.plotly_chart(candlestick(new_df1, num_period), use_container_width=True)
             st.plotly_chart(RSI(new_df1, num_period), use_container_width=True)
-
-new_df1 = ticker_.history(period = 'max')
-data1 = ticker_.history(period = 'max')
-
-if num_period == "":
-    
-    if chart_type == 'Candle' and indicators == 'RSI':
-        st.plotly_chart(candlestick(data1, '1y'), use_container_width=True)
-        st.plotly_chart(RSI(data1, '1y'), use_container_width=True)
-
-    if chart_type == 'Candle' and indicators == 'MACD':
-        st.plotly_chart(candlestick(data1, '1y'), use_container_width=True)
-        st.plotly_chart(MACD(data1, '1y'), use_container_width=True)
-
-    if chart_type == 'Line' and indicators == 'RSI':
-        st.plotly_chart(close_chart(data1, '1y'), use_container_width=True)
-        st.plotly_chart(RSI(data1, '1y'), use_container_width=True)
-
-    if chart_type == 'Line' and indicators == 'Moving Average':
-        st.plotly_chart(close_chart(data1, '1y'), use_container_width=True)
-        st.plotly_chart(Moving_average(data1, '1y'), use_container_width=True)
-
-    if chart_type == 'Line' and indicators == 'MACD':
-        st.plotly_chart(close_chart(data1, '1y'), use_container_width=True)
-        st.plotly_chart(MACD(data1, '1y'), use_container_width=True)
-else:
-
-    if chart_type == 'Candle' and indicators == 'RSI':
-        st.plotly_chart(candlestick(new_df1, num_period), use_container_width=True)
-        st.plotly_chart(RSI(new_df1, num_period), use_container_width=True)
-
-    if chart_type == 'Candle' and indicators == 'MACD':
-        st.plotly_chart(candlestick(new_df1, num_period), use_container_width=True)
-        st.plotly_chart(MACD(new_df1, num_period), use_container_width=True)
-
-    if chart_type == 'Line' and indicators == 'RSI':
-        st.plotly_chart(close_chart(new_df1, num_period), use_container_width=True)
-        st.plotly_chart(RSI(new_df1, num_period), use_container_width=True)
-
-    if chart_type == 'Line' and indicators == 'Moving Average':
-        st.plotly_chart(Moving_average(new_df1, num_period), use_container_width=True)
-        st.plotly_chart(close_chart(new_df1, num_period), use_container_width=True)
-
-    if chart_type == 'Line' and indicators == 'MACD':
-        st.plotly_chart(close_chart(new_df1, num_period), use_container_width=True)
-        st.plotly_chart(MACD(new_df1, num_period), use_container_width=True)
-
-    
+        if chart_type == 'Candle' and indicators == 'MACD':
+            st.plotly_chart(candlestick(new_df1, num_period), use_container_width=True)
+            st.plotly_chart(MACD(new_df1, num_period), use_container_width=True)
+        if chart_type == 'Line' and indicators == 'RSI':
+            st.plotly_chart(close_chart(new_df1, num_period), use_container_width=True)
+            st.plotly_chart(RSI(new_df1, num_period), use_container_width=True)
+        if chart_type == 'Line' and indicators == 'Moving Average':
+            st.plotly_chart(Moving_average(new_df1, num_period), use_container_width=True)
+            st.plotly_chart(close_chart(new_df1, num_period), use_container_width=True)
+        if chart_type == 'Line' and indicators == 'MACD':
+            st.plotly_chart(close_chart(new_df1, num_period), use_container_width=True)
+            st.plotly_chart(MACD(new_df1, num_period), use_container_width=True)
