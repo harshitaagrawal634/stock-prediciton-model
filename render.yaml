@@ -1,3 +1,4 @@
+pythonVersion: 3.10
 services:
   - type: web
     name: stock-prediction-app
@@ -6,6 +7,3 @@ services:
       pip install --upgrade pip
       pip install -r requirements.txt
     startCommand: streamlit run Trading_App.py --server.port=$PORT --server.enableCORS=false
-    envVars:
-      - key: PYTHON_VERSION
-        value: "3.10"
