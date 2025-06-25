@@ -3,6 +3,7 @@ services:
   - type: web
     name: stock-prediction-app
     runtime: python
+    pythonVersion: 3.10
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
