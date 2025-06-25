@@ -19,6 +19,10 @@ def stationary_check(close_price):
 
 def get_rolling_mean(close_price):
     rolling_price = close_price.rolling(window=7).mean().dropna()
+
+# Ensure it's a Series, not a DataFrame
+    if isinstance(rolling_price, pd.DataFrame):
+        rolling_price = rolling_price.iloc[:, 0] 
     return rolling_price
 
 def get_differencing_order(close_price):
@@ -34,7 +38,7 @@ def get_differencing_order(close_price):
     return d
 
 def fit_model(data,differencing_order):
-    model=ARIMA(data,order=(30,differencing_order,30))
+    model=ARIMA(data,order=(5,differencing_order,2))
     model_fit = model.fit()
     
     forecast_steps= 30
@@ -58,7 +62,7 @@ def get_forecast(original_price,differencing_order):
     predictions= fit_model(original_price,differencing_order)
     start_date= datetime.now().strftime('%Y-%m-%d')
     end_date= (datetime.now() + timedelta(days=29)).strftime('%Y-%m-%d')
-    forecast_index= pd.date_range(start=start_date,end=end_date,freq='D')
+    forecast_index = pd.bdate_range(start=start_date, periods=30)
     forecast_df= pd.DataFrame(predictions, index=forecast_index,columns= ['Close'])
     return forecast_df
 
