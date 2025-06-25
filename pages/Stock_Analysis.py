@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 import datetime
 import ta
 
+from pages.utils.model_train import get_stock_data, get_stock_info
 from pages.utils.plotly_figure import plotly_table
 from pages.utils.plotly_figure import filter_data
 from pages.utils.plotly_figure import close_chart
@@ -34,10 +35,9 @@ with col3:
 
 st.subheader(ticker)
 
-stock = yf.Ticker(ticker)
+info = get_stock_info(ticker)
 
 try:
-    info = stock.info
     st.write(info.get('longBusinessSummary', 'No summary available.'))
     st.write("**Sector:**", info.get('sector', 'N/A'))
     st.write("**Full Time Employees:**", info.get('fullTimeEmployees', 'N/A'))
@@ -69,7 +69,7 @@ except Exception as e:
     st.error(f"Failed to retrieve stock information: {e}")
 
 try:
-    data = yf.download(ticker, start=start_date, end=end_date)
+    data = get_stock_data(ticker, start_date, end_date)
     if data.empty:
         st.warning("No historical data available for this ticker and date range.")
         st.stop()
