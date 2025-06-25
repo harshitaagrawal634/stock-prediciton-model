@@ -68,13 +68,23 @@ try:
 except Exception as e:
     st.error(f"Failed to retrieve stock information: {e}")
 
-data=yf.download(ticker,start=start_date, end=end_date)
+try:
+    data = yf.download(ticker, start=start_date, end=end_date)
+    if data.empty:
+        st.warning("No historical data available for this ticker and date range.")
+        st.stop()
+except Exception as e:
+    st.error(f"Failed to download stock data: {e}")
+    st.stop()
 
-latest_close = data['Close'].iloc[-1]
-previous_close = data['Close'].iloc[-2]
-daily_change = latest_close - previous_close
+try:
+    latest_close = data['Close'].iloc[-1]
+    previous_close = data['Close'].iloc[-2]
+    daily_change = latest_close - previous_close
 
-col1.metric("Daily Change", round(latest_close.item(), 2), round(daily_change.item(), 2))
+    col1.metric("Daily Change", round(latest_close.item(), 2), round(daily_change.item(), 2))
+except Exception as e:
+    st.error(f"Error accessing daily close data: {e}")
 
 last_10_df = data.tail(10).sort_index(ascending=False).round(3)
 
