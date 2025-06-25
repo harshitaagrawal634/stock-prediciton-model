@@ -109,6 +109,23 @@ with col2:
         indicators = st.selectbox('', ('RSI', 'Moving Average', 'MACD'))
 
 ticker_ = yf.Ticker(ticker)
+
+new_df1 = ticker_.history(period = 'max')
+data1 = ticker_.history(period = 'max')
+
+if data1.empty or new_df1.empty:
+    st.error("No data available for this ticker or date range. This may be due to Yahoo Finance rate limiting or an invalid ticker. Please try again later or with a different ticker.")
+else:
+    if num_period == "":
+        if chart_type == 'Candle' and indicators == 'RSI':
+            st.plotly_chart(candlestick(data1, '1y'), use_container_width=True)
+            st.plotly_chart(RSI(data1, '1y'), use_container_width=True)
+        
+    else:
+        if chart_type == 'Candle' and indicators == 'RSI':
+            st.plotly_chart(candlestick(new_df1, num_period), use_container_width=True)
+            st.plotly_chart(RSI(new_df1, num_period), use_container_width=True)
+
 new_df1 = ticker_.history(period = 'max')
 data1 = ticker_.history(period = 'max')
 
