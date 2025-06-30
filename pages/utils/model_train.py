@@ -8,10 +8,23 @@ from datetime import datetime, timedelta
 import pandas as pd
 import streamlit as st
 
-def get_data(ticker):
-    stock_data=yf.download(ticker,start='2024-01-01')
-    return stock_data[['Close']]
+@st.cache_data(ttl=3600)  # Cache for 1 hour
+def get_stock_info(ticker):
+    try:
+        return yf.Ticker(ticker).info
+    except Exception as e:
+        st.error(f"Failed to retrieve stock info: {e}")
+        return {}
 
+@st.cache_data(ttl=3600)
+def get_stock_data(ticker, start, end):
+    try:
+        data = yf.download(ticker, start=start, end=end)
+        return data
+    except Exception as e:
+        st.error(f"Failed to retrieve historical data: {e}")
+        return pd.DataFrame()
+    
 def stationary_check(close_price):
     adf_test = adfuller(close_price)
     p_value = round(adf_test[1], 3)
