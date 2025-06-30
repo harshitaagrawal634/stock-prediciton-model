@@ -8,23 +8,10 @@ from datetime import datetime, timedelta
 import pandas as pd
 import streamlit as st
 
-@st.cache_data(ttl=3600)  # Cache for 1 hour
-def get_stock_info(ticker):
-    try:
-        return yf.Ticker(ticker).info
-    except Exception as e:
-        st.error(f"Failed to retrieve stock info: {e}")
-        return {}
+def get_data(ticker):
+    stock_data=yf.download(ticker,start='2024-01-01')
+    return stock_data[['Close']]
 
-@st.cache_data(ttl=3600)
-def get_stock_data(ticker, start, end):
-    try:
-        data = yf.download(ticker, start=start, end=end)
-        return data
-    except Exception as e:
-        st.error(f"Failed to retrieve historical data: {e}")
-        return pd.DataFrame()
-    
 def stationary_check(close_price):
     adf_test = adfuller(close_price)
     p_value = round(adf_test[1], 3)
@@ -51,7 +38,7 @@ def get_differencing_order(close_price):
     return d
 
 def fit_model(data,differencing_order):
-    model=ARIMA(data,order=(5,differencing_order,2))
+    model=ARIMA(data,order=(30,differencing_order,10))
     model_fit = model.fit()
     
     forecast_steps= 30
